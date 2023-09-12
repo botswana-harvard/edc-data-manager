@@ -87,9 +87,8 @@ class ModelDiffMixin:
                                            self._meta.fields])
 
 
-class DataActionItem(
-    NonUniqueSubjectIdentifierFieldMixin, ModelDiffMixin,
-    SiteModelMixin, SearchSlugModelMixin, BaseUuidModel):
+class DataActionItem(NonUniqueSubjectIdentifierFieldMixin, ModelDiffMixin,
+                     SiteModelMixin, SearchSlugModelMixin, BaseUuidModel):
     """ Tracks notes on missing or required data.
 
     Note can be displayed on the dashboard"""
@@ -213,10 +212,10 @@ class DataActionItem(
                 f"The user {self.assigned} that you have assigned the "
                 f"data issue {self.issue_number} does not exist.")
 
-
     def email_users(self, instance=None,
                     subject=None, message=None, emails=None):
-        """Send an email to users who are related to the issue created.
+
+        """Email users who are related to the issue created.
         """
         user = django_apps.get_model('auth.user')
         if not emails:
