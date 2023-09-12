@@ -36,19 +36,6 @@ class TestDataActionItem(TestCase):
             self.assertEqual(data_action_item.issue_number, count)
             count += 1
 
-    def test_user_assigned(self):
-        """Test that an issue can not be created if user assigned does not exists.
-        """
-        options = {
-            'subject_identifier': '123124',
-            'comment': 'This participant need to take PBMC for storage',
-            'user_created': self.user_created.username}
-        with self.assertRaises(ValidationError) as error:
-            DataActionItem.objects.create(**options)
-        self.assertEqual(
-            error.exception.message,
-            'The user  that you have assigned the data issue 1 does not exist.')
-
     def test_user_assigning(self):
         """Test that an issue can not be created if the user
         assigning does not exists as a django user.
@@ -56,9 +43,11 @@ class TestDataActionItem(TestCase):
         options = {
             'subject_identifier': '123124',
             'comment': 'This participant need to take PBMC for storage',
-            'assigned': self.assigned_user.username}
+            'assigned': 'testuser3',
+            'issue_number': 1}
         with self.assertRaises(ValidationError) as error:
             DataActionItem.objects.create(**options)
         self.assertEqual(
             error.exception.message,
-            'The user  that created the data issue 1 does not exist.')
+            f"The user {options.get('assigned')} that you have assigned the "
+            f"data issue {options.get('issue_number')} does not exist.")

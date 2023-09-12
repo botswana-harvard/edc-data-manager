@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/botswana-harvard/edc-registration.svg?branch=develop)](https://travis-ci.org/botswana-harvard/edc-registration) [![Coverage Status](https://coveralls.io/repos/github/botswana-harvard/edc-data-manager/badge.svg?branch=develop)](https://coveralls.io/github/botswana-harvard/edc-data-manager?branch=develop)
-
-# edc-data-manager
+# edc-data-manager ![Build Status](https://github.com/potlako-code-space/potlako/actions/workflows/django.yml/badge.svg) [![codecov](https://codecov.io/gh/potlako-code-space/potlako/branch/develop/graph/badge.svg?token=2e5ca624-4d88-43b8-96f5-37a3e4617cc7)](https://codecov.io/gh/potlako-code-space/potlako)
 
 This module registers data related issues and actions them to individuals tacking the issues.
 
