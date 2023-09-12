@@ -1,4 +1,4 @@
-# edc-data-manager ![Build Status](https://github.com/potlako-code-space/potlako/actions/workflows/django.yml/badge.svg) [![codecov](https://codecov.io/gh/potlako-code-space/potlako/branch/develop/graph/badge.svg?token=2e5ca624-4d88-43b8-96f5-37a3e4617cc7)](https://codecov.io/gh/potlako-code-space/potlako)
+# edc-data-manager ![Build Status](https://github.com/bhp-code-space/edc-data-manager/actions/workflows/django.yml/badge.svg) [![codecov](https://codecov.io/gh/bhp-code-space/edc-data-manager/branch/develop/graph/badge.svg?token=725f3cab-0da0-4d1e-89d7-b848d0f40809)](https://codecov.io/gh/bhp-code-space/edc-data-manager)
 
 This module registers data related issues and actions them to individuals tacking the issues.
 
