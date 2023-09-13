@@ -96,6 +96,14 @@ DATABASES = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.bhp.org.bw'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 25
+DEFAULT_FROM_EMAIL = 'se-dmc@bhp.org.bw'
+EMAIL_HOST_USER = 'se-dmc'
+EMAIL_HOST_PASSWORD = 'paiNae1p'
+
 # dashboards
 DASHBOARD_URL_NAMES = {
     'data_manager_listboard_url': 'data_manager_listboard_url',

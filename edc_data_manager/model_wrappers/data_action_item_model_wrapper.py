@@ -1,16 +1,15 @@
 from django.conf import settings
-from edc_model_wrapper import ModelWrapper
 from edc_base.utils import get_utcnow
+from edc_model_wrapper import ModelWrapper
 
 
 class DataActionItemModelWrapper(ModelWrapper):
-
     model = 'edc_data_manager.dataactionitem'
     next_url_attrs = ['subject_identifier']
     next_url_name = settings.DASHBOARD_URL_NAMES.get(
         'subject_dashboard_url')
 
-    property
+    @property
     def age(self):
         """Returns the ticket age.
         """

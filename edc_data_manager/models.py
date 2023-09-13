@@ -2,7 +2,7 @@ from datetime import date
 
 from django.apps import apps as django_apps
 from django.conf import settings
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.db import models
@@ -84,23 +84,22 @@ class ModelDiffMixin:
     @property
     def _dict(self):
         return model_to_dict(self, fields=[field.name for field in
-                             self._meta.fields])
+                                           self._meta.fields])
 
 
-class DataActionItem(
-        NonUniqueSubjectIdentifierFieldMixin, ModelDiffMixin,
-        SiteModelMixin, SearchSlugModelMixin, BaseUuidModel):
+class DataActionItem(NonUniqueSubjectIdentifierFieldMixin, ModelDiffMixin,
+                     SiteModelMixin, SearchSlugModelMixin, BaseUuidModel):
     """ Tracks notes on missing or required data.
 
     Note can be displayed on the dashboard"""
 
     subject = models.CharField(
         verbose_name="Issue Subject",
-        max_length=100,)
+        max_length=100, )
 
     action_date = models.DateField(
         verbose_name='Action date',
-        default=date.today,)
+        default=date.today, )
 
     comment = EncryptedTextField(max_length=500)
 
@@ -108,7 +107,7 @@ class DataActionItem(
 
     issue_number = models.IntegerField(
         default=0,
-        help_text="System auto field. Issue ref number.",)
+        help_text="System auto field. Issue ref number.", )
 
     action_priority = models.CharField(
         max_length=35,
@@ -117,7 +116,7 @@ class DataActionItem(
 
     assigned = models.CharField(
         verbose_name="Assign to",
-        max_length=50,)
+        max_length=50, )
 
     status = models.CharField(
         verbose_name="Status",
@@ -158,6 +157,8 @@ class DataActionItem(
                 self.subject_type = 'maternal'
         else:
             self.subject_type = 'subject'
+
+        self.check_user_exist()
         super(DataActionItem, self).save(*args, **kwargs)
 
     @property
@@ -202,9 +203,19 @@ class DataActionItem(
             assignable_users_choices += extra_choices
         return assignable_users_choices
 
+    def check_user_exist(self):
+        """Check that the user assigned exists."""
+        try:
+            User.objects.get(username=self.assigned)
+        except User.DoesNotExist:
+            raise ValidationError(
+                f"The user {self.assigned} that you have assigned the "
+                f"data issue {self.issue_number} does not exist.")
+
     def email_users(self, instance=None,
                     subject=None, message=None, emails=None):
-        """Send an email to users who are related to the issue created.
+
+        """Email users who are related to the issue created.
         """
         user = django_apps.get_model('auth.user')
         if not emails:
